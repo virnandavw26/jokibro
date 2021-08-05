@@ -4,5 +4,6 @@ import "fmt"
 
 func main() {
 
-	fmt.Println("hello feature A")
+	fmt.Println("feature B")
+
 }

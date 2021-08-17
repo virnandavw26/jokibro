@@ -84,15 +84,19 @@ func (jwtConf *ConfigJWT) VerifyRole(next echo.HandlerFunc) echo.HandlerFunc {
 }
 
 // GetUser from jwt ...
-func GetCustomer(c echo.Context) *JwtCustomClaims {
+func GetCustomer(c echo.Context) (res *JwtCustomClaims) {
 	user := c.Get("customer")
-	claims := user.(*JwtCustomClaims)
-	return claims
+	if user != nil {
+		res = user.(*JwtCustomClaims)
+	}
+	return res
 }
 
 // GetAdmin from jwt ...
-func GetAdmin(c echo.Context) *JwtCustomClaims {
+func GetAdmin(c echo.Context) (res *JwtCustomClaims) {
 	user := c.Get("admin")
-	claims := user.(*JwtCustomClaims)
-	return claims
+	if user != nil {
+		res = user.(*JwtCustomClaims)
+	}
+	return res
 }

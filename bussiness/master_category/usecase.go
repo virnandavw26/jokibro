@@ -52,7 +52,7 @@ func (uc *MasterCategoryUsecase) Update(ctx context.Context, ID int, data *Domai
 
 	data.UpdatedAt = time.Now().UTC()
 
-	res, err = uc.masterCategoryRespository.Update(ctx, ID, &*data)
+	res, err = uc.masterCategoryRespository.Update(ctx, ID, data)
 	if err != nil {
 		return res, err
 	}

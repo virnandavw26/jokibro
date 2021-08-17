@@ -52,7 +52,7 @@ func (uc *MasterServiceUsecase) Update(ctx context.Context, ID int, data *Domain
 
 	data.UpdatedAt = time.Now().UTC()
 
-	res, err = uc.masterServiceRespository.Update(ctx, ID, &*data)
+	res, err = uc.masterServiceRespository.Update(ctx, ID, data)
 	if err != nil {
 		return res, err
 	}

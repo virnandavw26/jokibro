@@ -27,13 +27,14 @@ func FromDomain(domain *worker.Domain) (res *Worker) {
 			Name:            domain.Name,
 			MasterServiceID: domain.MasterServiceID,
 			MasterService:   masterCategoryResp.FromDomain(domain.MasterService),
+			BirthDate:       domain.BirthDate.UTC().Format("2006-01-02"),
 			Education:       domain.Education,
 			Address:         domain.Address,
 			Price:           domain.Price,
 			Description:     domain.Description,
-			CreatedAt:       domain.CreatedAt.Format("2006-01-01 15:04:05"),
-			UpdatedAt:       domain.UpdatedAt.Format("2006-01-01 15:04:05"),
-			DeletedAt:       domain.DeletedAt.Format("2006-01-01 15:04:05"),
+			CreatedAt:       domain.CreatedAt.UTC().Format("2006-01-02 15:04:05"),
+			UpdatedAt:       domain.UpdatedAt.UTC().Format("2006-01-02 15:04:05"),
+			DeletedAt:       domain.DeletedAt.UTC().Format("2006-01-02 15:04:05"),
 		}
 
 	}

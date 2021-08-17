@@ -17,9 +17,9 @@ func FromDomain(domain *master_category.Domain) (res *MasterCategory) {
 		res = &MasterCategory{
 			ID:        domain.ID,
 			Name:      domain.Name,
-			CreatedAt: domain.CreatedAt.Format("2006-01-01 15:04:05"),
-			UpdatedAt: domain.UpdatedAt.Format("2006-01-01 15:04:05"),
-			DeletedAt: domain.DeletedAt.Format("2006-01-01 15:04:05"),
+			CreatedAt: domain.CreatedAt.UTC().Format("2006-01-02 15:04:05"),
+			UpdatedAt: domain.UpdatedAt.UTC().Format("2006-01-02 15:04:05"),
+			DeletedAt: domain.DeletedAt.UTC().Format("2006-01-02 15:04:05"),
 		}
 	}
 	return res

@@ -34,7 +34,7 @@ func (ctrl *CustomerAuthController) Register(c echo.Context) error {
 		return controller.NewErrorResponse(c, http.StatusUnauthorized, err)
 	}
 
-	return controller.NewSuccessResponse(c, resp)
+	return controller.NewSuccessResponse(c, response.FromDomain(&resp))
 
 }
 

@@ -30,6 +30,10 @@ import (
 	workerController "jokibro/controller/worker"
 	workerRepository "jokibro/driver/database/worker"
 
+	transactionUsecase "jokibro/bussiness/transaction"
+	transactionController "jokibro/controller/transaction"
+	transactionRepository "jokibro/driver/database/transaction"
+
 	_dbHelper "jokibro/driver/mysql"
 
 	"jokibro/app/middleware"
@@ -97,6 +101,10 @@ func main() {
 	customerAuthUc := customerAuthUsecase.NewCustomerAuthUsecase(timeoutContext, customerRepo, &configJWT)
 	customerAuthCtrl := customerAuthController.NewCustomerAuthController(e, customerAuthUc)
 
+	transactionRepo := transactionRepository.NewTransactionRepository(db)
+	transactionUc := transactionUsecase.NewTransactionUsecase(timeoutContext, transactionRepo, workerRepo)
+	transactionCtrl := transactionController.NewTransactionController(e, transactionUc)
+
 	routesInit := _routes.ControllerList{
 		JWTMiddleware:            &configJWT,
 		AdminAuthController:      *adminAuthCtrl,
@@ -106,6 +114,7 @@ func main() {
 		WorkerController:         *workerCtrl,
 		CustomerAuthController:   *customerAuthCtrl,
 		CustomerController:       *customerCtrl,
+		TransactionController:    *transactionCtrl,
 	}
 
 	routesInit.RouteRegister(e)

@@ -7,6 +7,7 @@ import (
 	customerRepo "jokibro/driver/database/customer"
 	masterCategoryRepo "jokibro/driver/database/master_category"
 	masterServiceRepo "jokibro/driver/database/master_service"
+	transactionRepo "jokibro/driver/database/transaction"
 	workerRepo "jokibro/driver/database/worker"
 	"jokibro/helper/encrypt"
 	"log"
@@ -44,7 +45,7 @@ func (config *ConfigDB) InitialDB() *gorm.DB {
 }
 
 func Migrate(DB *gorm.DB) {
-	DB.AutoMigrate(&masterCategoryRepo.MasterCategory{}, &masterServiceRepo.MasterService{}, &workerRepo.Worker{}, &adminRepo.Admin{}, &customerRepo.Customer{})
+	DB.AutoMigrate(&masterCategoryRepo.MasterCategory{}, &masterServiceRepo.MasterService{}, &workerRepo.Worker{}, &adminRepo.Admin{}, &customerRepo.Customer{}, &transactionRepo.Transaction{})
 }
 
 func Seeder(db *gorm.DB) {

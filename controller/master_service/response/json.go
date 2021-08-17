@@ -22,9 +22,9 @@ func FromDomain(domain *master_service.Domain) (res *MasterService) {
 			Name:             domain.Name,
 			MasterCategoryID: domain.MasterCategoryID,
 			MasterCategory:   masterCategoryResp.FromDomain(domain.MasterCategory),
-			CreatedAt:        domain.CreatedAt.Format("2006-01-01 15:04:05"),
-			UpdatedAt:        domain.UpdatedAt.Format("2006-01-01 15:04:05"),
-			DeletedAt:        domain.DeletedAt.Format("2006-01-01 15:04:05"),
+			CreatedAt:        domain.CreatedAt.UTC().Format("2006-01-02 15:04:05"),
+			UpdatedAt:        domain.UpdatedAt.UTC().Format("2006-01-02 15:04:05"),
+			DeletedAt:        domain.DeletedAt.UTC().Format("2006-01-02 15:04:05"),
 		}
 
 	}

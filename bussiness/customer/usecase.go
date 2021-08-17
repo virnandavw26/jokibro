@@ -66,7 +66,7 @@ func (uc *CustomerUsecase) Update(ctx context.Context, ID int, data *Domain) (re
 
 	data.UpdatedAt = time.Now().UTC()
 
-	res, err = uc.customerRespository.Update(ctx, ID, &*data)
+	res, err = uc.customerRespository.Update(ctx, ID, data)
 	if err != nil {
 		return res, err
 	}

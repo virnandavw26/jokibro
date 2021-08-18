@@ -8,6 +8,7 @@ import (
 	"jokibro/controller/customer_auth"
 	"jokibro/controller/master_category"
 	"jokibro/controller/master_service"
+	"jokibro/controller/news"
 	"jokibro/controller/transaction"
 	"jokibro/controller/worker"
 
@@ -24,6 +25,7 @@ type ControllerList struct {
 	MasterServiceController  master_service.MasterServiceController
 	WorkerController         worker.WorkerController
 	TransactionController    transaction.TransactionController
+	NewsController           news.NewsController
 }
 
 func (c *ControllerList) RouteRegister(e *echo.Echo) {
@@ -79,4 +81,7 @@ func (c *ControllerList) RouteRegister(e *echo.Echo) {
 	transactionRouter.GET("", c.TransactionController.Find, customerMiddleware.VerifyRole)
 	transactionRouter.GET("/id/:id", c.TransactionController.FindByID, customerMiddleware.VerifyRole)
 	transactionRouter.POST("", c.TransactionController.Store, customerMiddleware.VerifyRole)
+
+	newsRouter := r.Group("/news")
+	newsRouter.GET("", c.NewsController.Find)
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"time"
 
 	adminAuthUsecase "jokibro/bussiness/admin_auth"
@@ -34,6 +35,10 @@ import (
 	transactionController "jokibro/controller/transaction"
 	transactionRepository "jokibro/driver/database/transaction"
 
+	newsUsecase "jokibro/bussiness/news"
+	newsController "jokibro/controller/news"
+	newsRepository "jokibro/driver/thirdparties/news"
+
 	_dbHelper "jokibro/driver/mysql"
 
 	"jokibro/app/middleware"
@@ -45,7 +50,7 @@ import (
 )
 
 func init() {
-	viper.SetConfigFile(`config.json`)
+	viper.SetConfigFile(`app/config.json`)
 	err := viper.ReadInConfig()
 	if err != nil {
 		panic(err)
@@ -105,6 +110,10 @@ func main() {
 	transactionUc := transactionUsecase.NewTransactionUsecase(timeoutContext, transactionRepo, workerRepo)
 	transactionCtrl := transactionController.NewTransactionController(e, transactionUc)
 
+	newsRepo := newsRepository.NewNewsRepository(viper.GetString(`newsapi.host`), viper.GetString(`newsapi.key`), &http.Client{})
+	newsUc := newsUsecase.NewNewsUsecase(timeoutContext, newsRepo)
+	newsCtrl := newsController.NewNewsController(e, newsUc)
+
 	routesInit := _routes.ControllerList{
 		JWTMiddleware:            &configJWT,
 		AdminAuthController:      *adminAuthCtrl,
@@ -115,6 +124,7 @@ func main() {
 		CustomerAuthController:   *customerAuthCtrl,
 		CustomerController:       *customerCtrl,
 		TransactionController:    *transactionCtrl,
+		NewsController:           *newsCtrl,
 	}
 
 	routesInit.RouteRegister(e)
